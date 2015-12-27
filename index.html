@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Štatistiky-domén.sk</title>
+
+  <meta charset="utf-8">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Description" content="Na aké písmeno začínajú domény? Koľko majú znakov? Aké frameworky sú
+    najrozšírenejšie? Kde sú weby hostované? Štatistiky o slovenskom webe. ">
+  <meta name="keywords" content="doména, domény">
+
+  <link rel="stylesheet" href="stylesheets/blueprint.css">
+  <link rel="stylesheet" href="stylesheets/application.css">
+
+  <script type="text/javascript" src="javascripts/jquery.js"></script>
+  <script type="text/javascript" src="javascripts/highcharts.js"></script>
+  <script type="text/javascript" src="javascripts/application.js"></script>
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19447596-5']);
+    _gaq.push(['_setDomainName', '.statistiky-domen.sk']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="move-to-top"></div>
+
+    <header>
+      <a href="#">
+        <img src="images/logo.png" alt="štatistiky-domén.sk" id="logo" size="337x52">
+      </a>
+      <nav>
+          <ul>
+              <li class="right"><a href="#about">O projekte</a></li>
+              <li><a href="#domains">Domény</a></li>
+              <li><a href="#registrars">Registrátori</a></li>
+              <li><a href="#holders">Držitelia</a></li>
+              <li><a href="#nameservers">DNS servery</a></li>
+          </ul>
+      </nav>
+    </header>
+
+    <section id="content">
+      <div id="content-padded">
+        <a name="domains"></a>
+
+        <div class="block full box">
+           SK-NIC eviduje celkovo <b id="data-value-total"></b> funkčných domén.
+           Funkčné domény (generované do SK DNS zóny) sú denne zverejňované a práve z nich sa dajú robiť rôzne pekné štatistiky.
+        </div>
+
+        <article class="block half">
+            <div class="chart"
+                 data-key="distribution_first_letter"
+                 data-type="column"
+                 title="Počet domén podľa prvého písmena"
+                 data-tooltip="'Na ' + '<b>'+ this.x +'</b> začína <b>'+ formatNumber(this.y) + '</b> domén' "
+                 data-x-title="Prvé písmeno"
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">Pod lampou je najväčšia tma, najviac domén začína na s, p, a, m.
+              Okrem toho domény začínajú na 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, q, x, y</p>
+        </article>
+
+        <article class="block half">
+            <div class="chart"
+                 data-key="distribution_length"
+                 data-type="column"
+                 title="Počet domén podľa dĺžky"
+                 data-tooltip="'Dĺžku <b>'+ this.x +'</b> má <b>'+ formatNumber(this.y) + '</b> domén' "
+                 data-x-title="Dĺžka"
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">
+              Najdlhšia doména <b><em id="data-value-longest-name"></em></b>
+                má <b id="data-value-longest-length"></b> znakov,
+                najkratšia <b><em id="data-value-shortest-name"></em></b>
+                <b id="data-value-shortest-length"></b> znaky.
+            </p>
+        </article>
+
+        <article class="block full">
+            <div class="chart"
+                 data-key="trend_total"
+                 data-type="line"
+                 title="Rast počtu domén"
+                 data-series-interval="86400000"
+                 data-tooltip="formatDate(this.x) +': <b>'+ formatNumber(this.y) + '</b> funkčných domén' "
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">Údaj s počtom domén sa týka vždy predchádzajúceho dňa.
+              Najmenej domén sa registruje cez víkend.</p>
+        </article>
+
+        <a name="registrars"></a>
+
+        <article class="block full">
+            <div class="chart"
+                 data-key="distribution_registrars"
+                 data-type="column"
+                 title="Počet domén podľa registrátora"
+                 data-tooltip="'<b>'+ this.x +'</b> registruje <b>'+ formatNumber(this.y) + '</b> domén' "
+                 data-x-title="Registrátor"
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">Najväčší registrátori slovenských domén.</p>
+        </article>
+
+
+        <article class="block full">
+            <div class="chart"
+                 title="Rast počtu domén podľa registrátora"
+                 data-key="trend_registrars"
+                 data-type="line"
+                 data-multiple="true"
+                 data-series-interval="86400000"
+                 data-tooltip="formatDate(this.x) + ': <b>' + this.series.name +'</b> je registrátorom pre <b>'+ formatNumber(this.y) + '</b> domén' "
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">Potiahnutím myši vyberte úsek grafu, ktorý chcete zväčšiť. </p>
+        </article>
+
+        <a name="holders"></a>
+
+        <article class="block full">
+            <div class="chart"
+                 data-key="distribution_holders"
+                 data-type="column"
+                 title="Počet domén podľa držiteľa"
+                 data-tooltip="'<b>'+ this.x +'</b> je držiteľom pre <b>'+ formatNumber(this.y) + '</b> domén' "
+                 data-x-title="Držiteľ"
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">Proces získavania SK-NIC kľúča je niekedy zdĺhavý,
+                 preto používatelia často poverujú "držaním" domény registrátorov. </p>
+        </article>
+
+        <a name="nameservers"></a>
+
+        <article class="block full">
+            <div class="chart"
+                 data-key="distribution_nameservers"
+                 data-type="column"
+                 title="Počet domén podľa DNS"
+                 data-tooltip="'<b>'+ this.x +'</b> poskytuje DNS pre <b>'+ formatNumber(this.y) + '</b> domén' "
+                 data-x-title="DNS"
+                 data-y-title="Počet domén"
+            ></div>
+            <p class="box">NS1 záznam domény ukazuje, kde je doména parkovaná
+                 a väčšinou aj hostovaná. <b>Niektoré webhostingy nastavujú svojim doménam viac rôznych NS1,
+                 preto ich DNS servery používa viac domén, ako ukazuje porovnanie.</b> </p>
+        </article>
+
+        <a name="about"></a>
+
+        <article id="about">
+          <div class="video">
+            <iframe width="480" height="360" src="https://www.youtube.com/embed/j8SoBrC0OyA?rel=0" frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          <div class="description">
+            <p>
+              Projekt vznikol v roku 2011 ako školský projekt. Pôvodná verzia robila aj štatistiky technológií,
+              ktoré weby používali (frameworky, JS knižnice) a umiestnení serverov (podľa IP adries). Tieto štatistiky
+              ale neboli spoľahlivé, pretože veľa vecí sa detekovať nedá. Veľa ľudí ich nepozeralo a občas sa niečo
+              pokazilo práve v čase, keď som bol zaneprázdnený inými projektami. Preto som to zjednodušil a zameriavam
+              sa na zbieranie štatistík iba z verejných dát SK-NIC (bez sťahovania domovských stránok každej slovenskej
+              domény a analýz).
+            </p>
+
+            <p>
+              Na Githube nájdete nové statistiky-domen.sk (<a href="https://github.com/martinliptak/statistiky-domen-sk">statistiky-domen-sk</a>
+              a <a href="https://github.com/martinliptak/statistiky-domen-backend">statistiky-domen-backend</a>) a
+              históriu domén od začiatku roku 2013 (<a href="https://github.com/martinliptak/statistiky-domen-archive">statistiky-domen-archive</a>).
+              Ak by ste chceli spraviť analýzu domén, môžete použiť
+              <a href="https://rubygems.org/gems/framework_guesser">pôvodný kód detekcie technológií</a>.
+              Okrem slovenských domén som zanalyzoval aj malú vzorku <a href="dmoz-2011">3.7 milióna svetových domén</a>.
+              Potom som na Erazme v Madride analyzoval
+              <a href="https://martinliptak.wordpress.com/2014/01/09/spanish-domains-in-2013/">španielske domény</a>
+              a neskôr som našiel zoznam <a href="https://martinliptak.wordpress.com/2014/11/18/gov-uk-domains-in-2014/">.gov.uk domén</a>.
+            </p>
+            <p>
+              Na projekte som sa veľa naučil a ak máte nejaký nápad, čo robiť so štatistikami alebo analýzami ďalej,
+              smelo do toho. Ak máte otázky, <a href="http://www.martinliptak.com">napíšte mi</a>.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+        <div class="left">
+          <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.statistiky-domen.sk"
+            data-text="Statistiky-domen.sk" data-count="horizontal">Tweet</a>
+          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+          <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.statistiky-domen.sk%2F&amp;send=true&amp;layout=button_count&amp;width=150&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21"
+            scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:170px; height:21px;"
+            allowTransparency="true"></iframe>
+        </div>
+
+
+        <div class="right">
+            <span>
+              <a href="http://www.martinliptak.com">Správny inžinier</a>
+            </span>
+            <a href="http://www.websupport.sk" title="Projekt beží na virtuálnom serveri od WebSupportu">WebSupport.sk</a>
+        </div>
+    </footer>
+  </div>
+</body>
+</html>
